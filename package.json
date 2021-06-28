@@ -1,14 +1,17 @@
 {
-  "name": "secretify",
+  "name": "secretkeeper",
   "version": "1.3.1",
   "description": "",
   "main": "index.js",
   "scripts": {},
-  "keywords": [],
+  "keywords": [
+    "secrets",
+    "sessionsecrets",
+    "global"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "colors": "^1.4.0",
     "express": "^4.17.1"
   },
   "devDependencies": {

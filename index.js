@@ -5,11 +5,13 @@ class Manager{
     this.addSecret=this.addSecret.bind(this);
     this.getSecret=this.getSecret.bind(this);
     if(typeof defaultSecrets!=="object"){
-        console.warn("Default secrets are empty, taking them as blank");
+        console.warn("\x1b[33m%s\x1b[0m","Default secrets are not an object, taking them as blank object");
+        this.secrets={};
     }
     }
     middleware(req, res, next){
         req.secrets=this.secrets;
+        console.log(this.secrets);
         next();
     };
     addSecret(id, val){
@@ -18,18 +20,8 @@ class Manager{
     getSecret(id){
         return this.secrets[id];
     }
-}
-class LocalManager{
-    constructor(defaultSecrets)
-    {
-    this.secrets=defaultSecrets;
-    this.addSecret=this.addSecret.bind(this);
-    }
-    addSecret(id, secret){
-       this.secrets[id]=secret;
-    }
-    getSecret(id){
-        return this.secrets[id];
+    deleteSecret(id){
+        delete this.secrets[id];
     }
 }
-module.exports=Manager;
+module.exports={Manager};
