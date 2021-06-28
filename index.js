@@ -1,21 +1,35 @@
 class Manager{
-    constructor(env){
-    this.secrets=env;
-    this.secretify=this.secretify.bind(this);
+    constructor(defaultSecrets){
+    this.secrets=defaultSecrets;
+    this.middleware=this.middleware.bind(this);
     this.addSecret=this.addSecret.bind(this);
+    this.getSecret=this.getSecret.bind(this);
+    if(typeof defaultSecrets!=="object"){
+        console.warn("Default secrets are empty, taking them as blank");
     }
-    secretify(req, res, next){
-        if(req){
-            console.log("exists");
-        }
-        else{
-            console.log("not exists");
-        }
+    }
+    middleware(req, res, next){
         req.secrets=this.secrets;
         next();
     };
     addSecret(id, val){
         this.secrets[id]=val;
+    }
+    getSecret(id){
+        return this.secrets[id];
+    }
+}
+class LocalManager{
+    constructor(defaultSecrets)
+    {
+    this.secrets=defaultSecrets;
+    this.addSecret=this.addSecret.bind(this);
+    }
+    addSecret(id, secret){
+       this.secrets[id]=secret;
+    }
+    getSecret(id){
+        return this.secrets[id];
     }
 }
 module.exports=Manager;
